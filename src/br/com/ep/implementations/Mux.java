@@ -54,12 +54,12 @@ public class Mux {
     }
 
     public PalavraHorizontal traduzir(String assemblyLine) throws Exception {
-        PalavraHorizontal resp = null;
+        PalavraHorizontal resp;
         RegCode b = null;
         RegCode a = null;
         int aux2 = 0;
         int aux1 = 0;
-        String palavra = null;
+        String palavra;
         boolean f2 = false;
         boolean f1 = false;
         assemblyLine = assemblyLine.trim();
@@ -112,7 +112,7 @@ public class Mux {
                             break label203;
                     }
 
-                    a = (RegCode) this.regs.get(params[0].toLowerCase());
+                    a = this.regs.get(params[0].toLowerCase());
                     comando = comando + "reg";
                     break label204;
                 }
@@ -170,7 +170,7 @@ public class Mux {
                                 break label186;
                         }
 
-                        b = (RegCode) this.regs.get(params[1].toLowerCase());
+                        b = this.regs.get(params[1].toLowerCase());
                         comando = comando + "reg";
                         break label187;
                     }
@@ -185,7 +185,7 @@ public class Mux {
                 }
             }
 
-            byte[] code = (byte[]) this.opcodes.get(comando);
+            byte[] code = this.opcodes.get(comando);
             byte[] p = new byte[32];
             if (code == null) {
                 throw new Exception("Comando inválido " + assemblyLine + " - " + comando);

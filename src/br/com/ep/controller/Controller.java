@@ -1,11 +1,11 @@
 package br.com.ep.controller;
 
-import br.com.ep.components.cpu.Firmware;
+import br.com.ep.components.Porta;
+import br.com.ep.components.PortaX;
 import br.com.ep.components.cpu.*;
+import br.com.ep.display.TelaPrincipal;
 import br.com.ep.implementations.Mux;
 import br.com.ep.implementations.RegCode;
-import br.com.ep.components.*;
-import br.com.ep.display.TelaPrincipal;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -218,11 +218,9 @@ public class Controller implements ActionListener {
     private void traduzir(String text) throws Exception {
         String[] linhas = text.split("\n");
         int contador = 0;
-        String[] var7 = linhas;
-        int var6 = linhas.length;
 
-        for (int var5 = 0; var5 < var6; ++var5) {
-            String s = var7[var5];
+        for (String linha : linhas) {
+            String s = linha;
             s = s.trim();
             if (s.length() > 0) {
                 this.memoria.insere((long) contador, this.t.traduzir(s));

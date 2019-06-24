@@ -1,7 +1,7 @@
 package br.com.ep.display;
 
-import br.com.ep.implementations.LinhaControle;
 import br.com.ep.components.cpu.Firmware;
+import br.com.ep.implementations.LinhaControle;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -53,15 +53,11 @@ public class LinhaControleModel extends AbstractTableModel {
     }
 
     private String stringfy(byte[] a) {
-        String resp = "";
-        byte[] var6 = a;
-        int var5 = a.length;
-
-        for (int var4 = 0; var4 < var5; ++var4) {
-            byte b = var6[var4];
-            resp = resp + b;
+        StringBuilder resp = new StringBuilder();
+        for (byte b : a) {
+            resp.append(b);
         }
 
-        return resp;
+        return resp.toString();
     }
 }

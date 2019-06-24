@@ -10,11 +10,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Porta implements Observer, Subject {
-    protected boolean aberta;
-    protected boolean in;
-    protected Bus barramento;
-    protected Componente c;
-    protected int id;
+    boolean aberta;
+    private boolean in;
+    private Bus barramento;
+    Componente c;
+    int id;
     private List<Observer> obs;
 
     public Porta(boolean in, int id, Bus b, Componente c, UC uc) {

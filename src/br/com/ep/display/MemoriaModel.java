@@ -1,7 +1,7 @@
 package br.com.ep.display;
 
-import br.com.ep.implementations.PalavraHorizontal;
 import br.com.ep.components.cpu.Memory;
+import br.com.ep.implementations.PalavraHorizontal;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;

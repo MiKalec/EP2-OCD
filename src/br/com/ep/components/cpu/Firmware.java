@@ -6,7 +6,7 @@ public class Firmware {
     public static final LinhaControle[] instrucoes = new LinhaControle[71];
     private int pointer = 0;
 
-    static {
+    public Firmware() {
         instrucoes[0] = new LinhaControle(new byte[]{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 5, 0, 0, 0, 0}, "MAR <- PC | ULA <- PC (inc)");
         instrucoes[1] = new LinhaControle(new byte[]{0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 2, 0, 1, 0, 1, 0}, "Mem <- MAR | AC <- ULA");
         instrucoes[2] = new LinhaControle(new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 3, 0, 1, 0, 1, 0}, "MBR <- Mem | PC <- AC");
@@ -78,9 +78,6 @@ public class Firmware {
         instrucoes[68] = new LinhaControle(new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 69, 0, 0, 0, 0, 0}, "AX <- AC");
         instrucoes[69] = new LinhaControle(new byte[]{0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 29, 7, 0, 0, 0, 0}, "ULA <- X | ULA <- P1 (mod)");
         instrucoes[70] = new LinhaControle(new byte[]{0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 48, 0, 0, 1, 1, 3}, "Mem <- MAR | MBR <- reg");
-    }
-
-    public Firmware() {
     }
 
     public void setPointer(int p) {

@@ -1,31 +1,24 @@
 package br.com.ep.components.cpu;
 
-import br.com.ep.interfaces.*;
-import br.com.ep.interfaces.Observer;
 import br.com.ep.implementations.LinhaControle;
 import br.com.ep.implementations.OpCode;
 import br.com.ep.implementations.RegCode;
+import br.com.ep.interfaces.Observer;
+import br.com.ep.interfaces.Subject;
 
 import java.util.*;
 
 
 public class UC implements Subject {
     private Firmware firm;
-    private LinhaControle atual;
     private byte[] portas;
     private Map<RegCode, RegistradorUtilizavel> regsUtilizaveis;
     private IR ir;
     private OpCode operacao;
     private Memory mem;
     private UnidadeLogicaAritimetica ula;
-    byte indirecao;
     private boolean flagUpdate;
     private static Map<OpCode, byte[]> CodeCfgs = new HashMap();
-    private final byte busca = 0;
-    private final byte inNumP2 = 4;
-    private final byte inRegP2 = 8;
-    private final byte inRegP1 = 9;
-    private final byte execucao = 10;
     private List<Observer> observers;
 
     static {
@@ -67,10 +60,8 @@ public class UC implements Subject {
         this.ula = ula;
         this.observers = new LinkedList();
         this.regsUtilizaveis = new HashMap();
-        Iterator var6 = regs.iterator();
 
-        while (var6.hasNext()) {
-            RegistradorUtilizavel i = (RegistradorUtilizavel) var6.next();
+        for (RegistradorUtilizavel i : regs) {
             this.regsUtilizaveis.put(i.getID(), i);
         }
 
@@ -81,13 +72,13 @@ public class UC implements Subject {
     }
 
     private void executeMicroInstruction() throws Exception {
-        this.atual = this.firm.getInstruction();
-        this.portas = this.atual.getPortas();
+        LinhaControle atual = this.firm.getInstruction();
+        this.portas = atual.getPortas();
         RegistradorUtilizavel a;
         RegistradorUtilizavel b;
-        switch (this.atual.getDecode()) {
+        switch (atual.getDecode()) {
             case 1:
-                a = (RegistradorUtilizavel) this.regsUtilizaveis.get(new RegCode(this.ir.getP1().getBits(29, 31)));
+                a = this.regsUtilizaveis.get(new RegCode(this.ir.getP1().getBits(29, 31)));
                 if (a == null) {
                     throw new Exception("Registrador invalido: " + a);
                 }
@@ -95,7 +86,7 @@ public class UC implements Subject {
                 this.portas[Integer.parseInt(a.getCodigo().substring(4, 6))] = 1;
                 break;
             case 2:
-                a = (RegistradorUtilizavel) this.regsUtilizaveis.get(new RegCode(this.ir.getP1().getBits(29, 31)));
+                a = this.regsUtilizaveis.get(new RegCode(this.ir.getP1().getBits(29, 31)));
                 if (a == null) {
                     throw new Exception("Registrador invalido" + a);
                 }
@@ -103,7 +94,7 @@ public class UC implements Subject {
                 this.portas[Integer.parseInt(a.getCodigo().substring(1, 3))] = 1;
                 break;
             case 3:
-                a = (RegistradorUtilizavel) this.regsUtilizaveis.get(new RegCode(this.ir.getP2().getBits(29, 31)));
+                a = this.regsUtilizaveis.get(new RegCode(this.ir.getP2().getBits(29, 31)));
                 if (a == null) {
                     throw new Exception("Registrador invalido" + a);
                 }
@@ -111,7 +102,7 @@ public class UC implements Subject {
                 this.portas[Integer.parseInt(a.getCodigo().substring(4, 6))] = 1;
                 break;
             case 4:
-                a = (RegistradorUtilizavel) this.regsUtilizaveis.get(new RegCode(this.ir.getP2().getBits(29, 31)));
+                a = this.regsUtilizaveis.get(new RegCode(this.ir.getP2().getBits(29, 31)));
                 if (a == null) {
                     throw new Exception("Registrador invalido" + a);
                 }
@@ -119,8 +110,8 @@ public class UC implements Subject {
                 this.portas[Integer.parseInt(a.getCodigo().substring(1, 3))] = 1;
                 break;
             case 5:
-                a = (RegistradorUtilizavel) this.regsUtilizaveis.get(new RegCode(this.ir.getP1().getBits(29, 31)));
-                b = (RegistradorUtilizavel) this.regsUtilizaveis.get(new RegCode(this.ir.getP2().getBits(29, 31)));
+                a = this.regsUtilizaveis.get(new RegCode(this.ir.getP1().getBits(29, 31)));
+                b = this.regsUtilizaveis.get(new RegCode(this.ir.getP2().getBits(29, 31)));
                 if (a == null || b == null) {
                     throw new Exception("Registrador invalido" + a + " " + b);
                 }
@@ -129,8 +120,8 @@ public class UC implements Subject {
                 this.portas[Integer.parseInt(b.getCodigo().substring(4, 6))] = 1;
                 break;
             case 6:
-                a = (RegistradorUtilizavel) this.regsUtilizaveis.get(new RegCode(this.ir.getP1().getBits(29, 31)));
-                b = (RegistradorUtilizavel) this.regsUtilizaveis.get(new RegCode(this.ir.getP2().getBits(29, 31)));
+                a = this.regsUtilizaveis.get(new RegCode(this.ir.getP1().getBits(29, 31)));
+                b = this.regsUtilizaveis.get(new RegCode(this.ir.getP2().getBits(29, 31)));
                 if (a == null || b == null) {
                     throw new Exception("Registrador invalido " + a + " " + b);
                 }
@@ -139,17 +130,17 @@ public class UC implements Subject {
                 this.portas[Integer.parseInt(a.getCodigo().substring(4, 6))] = 1;
         }
 
-        this.mem.setFlags(this.atual.getRWAV());
+        this.mem.setFlags(atual.getRWAV());
         this.flagUpdate = false;
         this.notifyObservers();
         this.flagUpdate = true;
         this.notifyObservers();
-        this.ula.setOperacao(this.atual.getULA(), this.firm.getPointer() != 0);
-        byte ponteiro = this.atual.getProx();
+        this.ula.setOperacao(atual.getULA(), this.firm.getPointer() != 0);
+        byte ponteiro = atual.getProx();
         this.operacao = this.ir.getOpCode();
         byte[] cfg;
         if (ponteiro == -1) {
-            cfg = (byte[]) CodeCfgs.get(this.operacao);
+            cfg = CodeCfgs.get(this.operacao);
             if (cfg == null) {
                 throw new Exception("OpCode invalido " + this.operacao);
             }
@@ -168,7 +159,7 @@ public class UC implements Subject {
                     ponteiro = 10;
             }
         } else if (ponteiro == -2) {
-            cfg = (byte[]) CodeCfgs.get(this.operacao);
+            cfg = CodeCfgs.get(this.operacao);
             if (cfg == null) {
                 throw new Exception("OpCode invalido " + this.operacao);
             }
@@ -228,10 +219,7 @@ public class UC implements Subject {
 
 
     public void notifyObservers() {
-        Iterator var2 = this.observers.iterator();
-
-        while (var2.hasNext()) {
-            Observer o = (Observer) var2.next();
+        for (Observer o : this.observers) {
             o.notify(this);
         }
 
@@ -241,8 +229,8 @@ public class UC implements Subject {
         return this.portas[id] == 1;
     }
 
-    public static int getQtdRegs(OpCode opcode) {
-        return ((byte[]) CodeCfgs.get(opcode))[1];
+    static int getQtdRegs(OpCode opcode) {
+        return CodeCfgs.get(opcode)[1];
     }
 
     public void reset() {

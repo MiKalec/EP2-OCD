@@ -1,29 +1,25 @@
 package br.com.ep.components.cpu;
 
-import br.com.ep.interfaces.Observer;
 import br.com.ep.implementations.PalavraHorizontal;
+import br.com.ep.interfaces.Observer;
 import br.com.ep.interfaces.Subject;
 
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 
 public class Bus implements Subject {
     private PalavraHorizontal palavraAtual;
-    private List<Observer> observers = new LinkedList();
+    private LinkedList observers = new LinkedList();
 
     public Bus() {
     }
 
-    public void addObserver(Observer o) {
-        this.observers.add(o);
+    public void addObserver(Observer observer) {
+        this.observers.add(observer);
     }
 
     public void notifyObservers() {
-        Iterator var2 = this.observers.iterator();
-
-        while (var2.hasNext()) {
-            Observer o = (Observer) var2.next();
+        for (Object observer : this.observers) {
+            Observer o = (Observer) observer;
             o.notify(this);
         }
 
@@ -33,8 +29,8 @@ public class Bus implements Subject {
         return this.palavraAtual;
     }
 
-    public void setWord(PalavraHorizontal p) {
-        this.palavraAtual = p;
+    public void setWord(PalavraHorizontal palavra) {
+        this.palavraAtual = palavra;
         this.notifyObservers();
     }
 }

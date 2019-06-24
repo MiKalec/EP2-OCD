@@ -15,7 +15,6 @@ public class RegistradorUtilizavel extends Registrador {
     }
 
     public int hashCode() {
-        boolean prime = true;
         int result = 1;
         result = 31 * result + this.id.hashCode();
         return result;

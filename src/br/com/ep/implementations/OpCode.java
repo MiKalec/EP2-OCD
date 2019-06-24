@@ -25,7 +25,6 @@ public class OpCode {
     }
 
     public int hashCode() {
-        boolean prime = true;
         int result = 1;
         result = 31 * result + Arrays.hashCode(this.code);
         return result;

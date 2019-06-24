@@ -23,7 +23,7 @@ public class PalavraHorizontal {
 
     public PalavraHorizontal(PalavraHorizontal a, int from, int to) {
         this.bits = new byte[32];
-        if (from >= 0 && from < 32 && from <= to && to >= 0 && to <= 32) {
+        if (from >= 0 && from < 32 && from <= to && to <= 32) {
             int b = 31;
 
             for (int i = to; i >= from; --i) {
@@ -50,7 +50,7 @@ public class PalavraHorizontal {
 
     }
 
-    public byte[] getBits() {
+    byte[] getBits() {
         return this.bits;
     }
 
@@ -58,17 +58,14 @@ public class PalavraHorizontal {
         return Arrays.copyOfRange(this.bits, from, to + 1);
     }
 
-    public String bitString(byte[] bits) {
-        String r = "";
-        byte[] var6 = bits;
-        int var5 = bits.length;
+    private String bitString(byte[] bits) {
+        StringBuilder r = new StringBuilder();
 
-        for (int var4 = 0; var4 < var5; ++var4) {
-            byte b = var6[var4];
-            r = r + b;
+        for (byte b : bits) {
+            r.append(b);
         }
 
-        return r;
+        return r.toString();
     }
 
     public String toString() {

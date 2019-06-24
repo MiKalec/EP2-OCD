@@ -1,7 +1,7 @@
 package br.com.ep.components.cpu;
 
-import br.com.ep.interfaces.Componente;
 import br.com.ep.implementations.PalavraHorizontal;
+import br.com.ep.interfaces.Componente;
 
 public class UnidadeLogicaAritimetica implements Componente {
     public static final byte NDA = 0;
@@ -28,11 +28,7 @@ public class UnidadeLogicaAritimetica implements Componente {
         this.flags = new byte[2];
     }
 
-    public String getCodigo() {
-        return this.codigo;
-    }
-
-    public void setOperacao(byte b, boolean updateFlags) throws Exception {
+    void setOperacao(byte b, boolean updateFlags) throws Exception {
         if (b >= 1 && b <= 7) {
             this.updateFlags = updateFlags;
             this.operacao = b;
@@ -74,7 +70,6 @@ public class UnidadeLogicaAritimetica implements Componente {
                 if (a == 0) {
                     throw new Exception("Divisao por 0");
                 }
-
                 resp = b / a;
                 break;
             case 4:

@@ -1,17 +1,17 @@
 package br.com.ep.components.cpu;
 
-import br.com.ep.interfaces.Componente;
 import br.com.ep.implementations.PalavraHorizontal;
+import br.com.ep.interfaces.Componente;
 
 import java.util.Map;
 import java.util.TreeMap;
 
 public class Memory implements Componente {
-    boolean av;
-    boolean w;
-    boolean r;
-    boolean endOk;
-    Map<Long, PalavraHorizontal> palavras = new TreeMap();
+    private boolean av;
+    private boolean w;
+    private boolean r;
+    private boolean endOk;
+    private TreeMap palavras = new TreeMap();
     private long address;
     private PalavraHorizontal valor;
     private String cod;
@@ -29,7 +29,7 @@ public class Memory implements Componente {
         return this.palavras;
     }
 
-    public void setFlags(byte[] flags) {
+    void setFlags(byte[] flags) {
         if (flags.length == 3) {
             this.r = flags[0] == 1;
             this.w = flags[1] == 1;
@@ -62,8 +62,8 @@ public class Memory implements Componente {
         return this.valor == null && this.address >= 0L ? new PalavraHorizontal() : this.valor;
     }
 
-    public void insere(long posicao, PalavraHorizontal val) {
-        this.palavras.put(posicao, val);
+    public void insere(long posicao, PalavraHorizontal palavra) {
+        this.palavras.put(posicao, palavra);
     }
 
     public void reset() {

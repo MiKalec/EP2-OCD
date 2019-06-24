@@ -40,29 +40,29 @@ public class IR extends Registrador {
                     this.p1.setWord(new PalavraHorizontal((long) ((int) Long.parseLong(this.parse(mem.getBits(5, fim)), 2))), -1);
                     this.p2.setWord(new PalavraHorizontal((long) ((int) Long.parseLong(this.parse(mem.getBits(fim + 1, 31)), 2))), -1);
             }
-        } catch (Exception var4) {
-            var4.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
 
     private String parse(byte[] bits) {
-        String resp = "";
+        StringBuilder resp = new StringBuilder();
         if (bits.length > 0) {
             int size = 32;
 
             for (int i = bits.length - 1; i >= 0; --i) {
-                resp = bits[i] + resp;
+                resp.insert(0, bits[i]);
                 --size;
             }
 
             while (size > 0) {
-                resp = (bits[0] == 1 ? "1" : "0") + resp;
+                resp.insert(0, (bits[0] == 1 ? "1" : "0"));
                 --size;
             }
         }
 
-        return resp;
+        return resp.toString();
     }
 
     public PalavraHorizontal getP1() {

@@ -16,7 +16,7 @@ public class RegCode {
 
     }
 
-    public byte[] getCode() {
+    byte[] getCode() {
         return this.code;
     }
 
@@ -25,7 +25,6 @@ public class RegCode {
     }
 
     public int hashCode() {
-        boolean prime = true;
         int result = 1;
         result = 31 * result + Arrays.hashCode(this.code);
         return result;

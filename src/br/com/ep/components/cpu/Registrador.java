@@ -1,7 +1,7 @@
 package br.com.ep.components.cpu;
 
-import br.com.ep.interfaces.Componente;
 import br.com.ep.implementations.PalavraHorizontal;
+import br.com.ep.interfaces.Componente;
 
 public class Registrador implements Componente {
     private String nome;
@@ -12,10 +12,6 @@ public class Registrador implements Componente {
         this.nome = nome;
         this.codigo = codigo;
         this.mem = new PalavraHorizontal();
-    }
-
-    public String getNome() {
-        return this.nome;
     }
 
     public String getCodigo() {

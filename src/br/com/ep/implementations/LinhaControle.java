@@ -3,13 +3,12 @@ package br.com.ep.implementations;
 import java.util.Arrays;
 
 public class LinhaControle {
-    private static final int tamLinha = 39;
     private String funcao;
     private byte[] linha;
 
-    public LinhaControle(byte[] l, String funcao) {
-        if (l.length == 39) {
-            this.linha = l;
+    public LinhaControle(byte[] linha, String funcao) {
+        if (linha.length == 39) {
+            this.linha = linha;
         } else {
             this.linha = new byte[39];
         }
@@ -19,10 +18,6 @@ public class LinhaControle {
 
     public String getDesc() {
         return this.funcao;
-    }
-
-    public byte[] getLinha() {
-        return this.linha;
     }
 
     public byte[] getPortas() {
