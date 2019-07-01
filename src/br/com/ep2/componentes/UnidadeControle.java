@@ -1,9 +1,6 @@
 package br.com.ep2.componentes;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -37,6 +34,8 @@ public class UnidadeControle {
                 comandos.add(linha);
                 linha = lerArq.readLine();
             }
+            arq.close();
+            lerArq.close();
         } catch (FileNotFoundException e) {
             System.out.println("Arquivo não encontrado");
             e.printStackTrace();
@@ -45,10 +44,25 @@ public class UnidadeControle {
             e.printStackTrace();
         }
 
-        executaComandos(comandos);
+        executaComandos(comandos); //vai retornar uma lista de strings com os logs
+        printLog(nomeArquivo, comandos);
     }
 
     private void executaComandos(List<String> comandos) {
         //aqui vai a interação com o Firmware e execução do programa passado
+    }
+
+    private void printLog(String nomeArquivo, List<String> logs) {
+        try {
+            FileWriter writer = new FileWriter("src/br/com/ep2/logs/" + nomeArquivo + "_log.txt");
+            writer.write(nomeArquivo + " logs:\n");
+            for (String linha : logs) {
+                writer.write(linha + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("log escrito com sucesso!");
     }
 }
