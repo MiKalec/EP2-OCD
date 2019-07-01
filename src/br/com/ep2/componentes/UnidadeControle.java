@@ -1,4 +1,4 @@
-package br.com.epfinal;
+package br.com.ep2.componentes;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -30,7 +30,7 @@ public class UnidadeControle {
         String nomeArquivo = input.nextLine();
 
         try {
-            FileReader arq = new FileReader(nomeArquivo);
+            FileReader arq = new FileReader("src/br/com/ep2/instrucoes/" + nomeArquivo + ".txt");
             BufferedReader lerArq = new BufferedReader(arq);
             String linha = lerArq.readLine();
             while (linha != null) {

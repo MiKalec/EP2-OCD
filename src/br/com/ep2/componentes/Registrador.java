@@ -1,4 +1,4 @@
-package br.com.epfinal;
+package br.com.ep2.componentes;
 
 public class Registrador {
     private String nome;

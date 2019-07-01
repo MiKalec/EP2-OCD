@@ -1,4 +1,4 @@
-package br.com.epfinal;
+package br.com.ep2.componentes;
 
 public class CPU {
     public final UnidadeControle unidadeControle = new UnidadeControle();
