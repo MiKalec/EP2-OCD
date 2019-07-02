@@ -3,8 +3,8 @@ package br.com.ep2.componentes;
 public class Registrador {
     private String nome;
     private byte[] valor;
-    private int[] portaEntrada = new int[2];
-    private int[] portaSaida = new int[2];
+    private int[] portaEntrada;
+    private int[] portaSaida;
     private byte aberto;
 
     public Registrador(final String nome, int portaEntrada, int portaSaida) {
@@ -43,5 +43,13 @@ public class Registrador {
 
     public String getNome() {
         return nome;
+    }
+
+    public int[] getPortaEntrada() {
+        return portaEntrada;
+    }
+
+    public int[] getPortaSaida() {
+        return portaSaida;
     }
 }

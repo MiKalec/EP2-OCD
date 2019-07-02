@@ -19,6 +19,7 @@ public class UnidadeControle {
         registradores.add(new Registrador("DX", 12, 13));
         registradores.add(new Registrador("MAR", 3, 20));
         registradores.add(new Registrador("MBR", new int[]{4, 21}, new int[]{5, 22}));
+        registradores.add(new Registrador("MEMORIA", 16, 17));
     }
 
     public void executa() {
